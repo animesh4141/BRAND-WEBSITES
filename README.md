@@ -1,4 +1,4 @@
-# Vidya Vihar School Website - Setup Instructions
+# Saraswati Bal Niketan School Website - Setup Instructions
 
 ## 📸 Image Setup Instructions
 
@@ -111,7 +111,7 @@ In the iframe `src`, find and replace these values:
 
 ### Change School Name & Details:
 - Open `index.html`
-- Search and replace "Vidya Vihar School" with your school name
+- Search and replace "Saraswati Bal Niketan School" with your school name
 - Update contact details (address, phone, email)
 - Update all text content as per your school
 
@@ -136,7 +136,7 @@ Find the Contact section in `index.html` and update:
 ✅ Responsive design (works on mobile, tablet, desktop)
 ✅ Home page with hero section
 ✅ About School section
-✅ About Vidya Vihar Trust section
+✅ About Saraswati Bal Niketan Trust section
 ✅ Photo Gallery
 ✅ Sports Section with achievements
 ✅ Admissions with guidelines and fee structure
@@ -168,5 +168,6 @@ If you face any issues:
 
 ---
 
-**Website Created for Vidya Vihar School**  
+**Website Created for Saraswati Bal Niketan School**  
 *Professional, Modern, and Mobile-Responsive Design*
+

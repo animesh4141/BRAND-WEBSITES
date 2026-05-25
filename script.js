@@ -1,5 +1,5 @@
 // =============================================
-// VIDYA VIHAR SCHOOL WEBSITE - JavaScript
+// Saraswati Bal Niketan SCHOOL WEBSITE - JavaScript
 // Interactive Functionality
 // =============================================
 
@@ -450,5 +450,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    console.log('Vidya Vihar School Website - All scripts loaded successfully!');
+    console.log('Saraswati Bal Niketan School Website - All scripts loaded successfully!');
 });
+

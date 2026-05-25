@@ -1,0 +1,1967 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Saraswati Bal Niketan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --primary-dark: #0f172a;
+            --primary-light: #3b82f6;
+            --accent: #f59e0b;
+            --accent-dark: #d97706;
+            --sidebar-bg: #0f172a;
+            --sidebar-text: #94a3b8;
+            --sidebar-active: #1e3a8a;
+            --sidebar-hover: #1e293b;
+            --card-bg: #ffffff;
+            --body-bg: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --radius: 0.75rem;
+            --shadow: 0 4px 6px rgba(0,0,0,0.07);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: var(--body-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        /* ===== LOGIN PAGE ===== */
+        #loginPage {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0f172a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #loginPage::before {
+            content: '';
+            position: absolute;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%);
+            top: -100px; left: -100px;
+            border-radius: 50%;
+        }
+
+        #loginPage::after {
+            content: '';
+            position: absolute;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(245,158,11,0.1) 0%, transparent 70%);
+            bottom: -50px; right: -50px;
+            border-radius: 50%;
+        }
+
+        .login-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 1.5rem;
+            padding: 3rem;
+            width: 100%;
+            max-width: 440px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        }
+
+        .login-logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-logo .logo-icon {
+            width: 70px; height: 70px;
+            background: linear-gradient(135deg, var(--accent), #f97316);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+            color: white;
+            box-shadow: 0 10px 30px rgba(245,158,11,0.3);
+        }
+
+        .login-logo h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+
+        .login-logo p {
+            color: #94a3b8;
+            font-size: 0.85rem;
+        }
+
+        .login-form .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .login-form label {
+            display: block;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+            font-size: 1rem;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 0.875rem 1rem 0.875rem 3rem;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 0.75rem;
+            color: white;
+            font-size: 0.95rem;
+            font-family: 'Manrope', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .login-form input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            background: rgba(255,255,255,0.1);
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+        }
+
+        .login-form input::placeholder { color: #475569; }
+
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: 'Manrope', sans-serif;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            transition: all 0.3s;
+            letter-spacing: 0.025em;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(30,58,138,0.4);
+        }
+
+        .login-error {
+            background: rgba(239,68,68,0.15);
+            border: 1px solid rgba(239,68,68,0.3);
+            color: #fca5a5;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .login-hint {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #475569;
+            font-size: 0.8rem;
+        }
+
+        .login-hint span { color: #94a3b8; }
+
+        /* ===== ADMIN DASHBOARD ===== */
+        #adminDashboard {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 260px;
+            background: var(--sidebar-bg);
+            min-height: 100vh;
+            position: fixed;
+            left: 0; top: 0;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s;
+        }
+
+        .sidebar.collapsed { width: 72px; }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .sidebar-logo {
+            width: 40px; height: 40px;
+            background: linear-gradient(135deg, var(--accent), #f97316);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .sidebar-title {
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 700;
+            line-height: 1.3;
+            font-family: 'Playfair Display', serif;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .sidebar-title small {
+            display: block;
+            font-size: 0.7rem;
+            color: #64748b;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 500;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 1.5rem 0;
+            overflow-y: auto;
+        }
+
+        .nav-section-title {
+            color: #334155;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0 1.5rem;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .sidebar.collapsed .nav-section-title,
+        .sidebar.collapsed .sidebar-title { display: none; }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 0.875rem;
+            padding: 0.75rem 1.5rem;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .sidebar-link:hover {
+            background: var(--sidebar-hover);
+            color: #e2e8f0;
+        }
+
+        .sidebar-link.active {
+            background: var(--sidebar-active);
+            color: white;
+            border-right: 3px solid var(--accent);
+        }
+
+        .sidebar-link i { font-size: 1.1rem; flex-shrink: 0; }
+
+        .sidebar.collapsed .sidebar-link span { display: none; }
+
+        .sidebar-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.07);
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+            border: none;
+            background: none;
+            width: 100%;
+        }
+
+        .logout-btn:hover { color: #ef4444; background: rgba(239,68,68,0.1); }
+
+        /* MAIN CONTENT */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            min-height: 100vh;
+            transition: all 0.3s;
+        }
+
+        .main-content.expanded { margin-left: 72px; }
+
+        /* TOPBAR */
+        .topbar {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: var(--shadow);
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .sidebar-toggle {
+            width: 38px; height: 38px;
+            background: var(--body-bg);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+        }
+
+        .sidebar-toggle:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
+        .page-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .page-title small {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .topbar-btn {
+            width: 38px; height: 38px;
+            background: var(--body-bg);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .topbar-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
+        .badge {
+            position: absolute;
+            top: -4px; right: -4px;
+            width: 16px; height: 16px;
+            background: var(--danger);
+            color: white;
+            font-size: 0.6rem;
+            font-weight: 700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+        }
+
+        .admin-avatar {
+            width: 38px; height: 38px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .admin-name {
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .admin-role {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+
+        /* PAGE CONTENT */
+        .page-content {
+            padding: 2rem;
+        }
+
+        /* TABS */
+        .tab-pane { display: none; }
+        .tab-pane.active { display: block; }
+
+        /* STATS CARDS */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-icon {
+            width: 56px; height: 56px;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .stat-icon.blue { background: rgba(59,130,246,0.1); color: #3b82f6; }
+        .stat-icon.green { background: rgba(16,185,129,0.1); color: #10b981; }
+        .stat-icon.amber { background: rgba(245,158,11,0.1); color: #f59e0b; }
+        .stat-icon.purple { background: rgba(139,92,246,0.1); color: #8b5cf6; }
+        .stat-icon.red { background: rgba(239,68,68,0.1); color: #ef4444; }
+
+        .stat-info h3 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .stat-info p { color: var(--text-secondary); font-size: 0.85rem; }
+
+        .stat-change {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.5rem;
+            border-radius: 1rem;
+            margin-top: 0.25rem;
+        }
+
+        .stat-change.up { background: rgba(16,185,129,0.1); color: #10b981; }
+        .stat-change.down { background: rgba(239,68,68,0.1); color: #ef4444; }
+
+        /* CARDS */
+        .admin-card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-header h3 {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .card-body { padding: 1.5rem; }
+
+        /* TABLES */
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+
+        .admin-table th {
+            background: var(--body-bg);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-weight: 700;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .admin-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        .admin-table tr:last-child td { border-bottom: none; }
+        .admin-table tr:hover td { background: #f8fafc; }
+
+        /* BADGES */
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .status-badge.active { background: rgba(16,185,129,0.1); color: #10b981; }
+        .status-badge.pending { background: rgba(245,158,11,0.1); color: #f59e0b; }
+        .status-badge.inactive { background: rgba(239,68,68,0.1); color: #ef4444; }
+
+        /* BUTTONS */
+        .btn { 
+            padding: 0.625rem 1.25rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            font-family: 'Manrope', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
+        .btn-success { background: var(--success); color: white; }
+        .btn-success:hover { background: #059669; }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-danger:hover { background: #dc2626; }
+        .btn-warning { background: var(--warning); color: white; }
+        .btn-outline { background: transparent; color: var(--primary); border: 1.5px solid var(--primary); }
+        .btn-outline:hover { background: var(--primary); color: white; }
+        .btn-sm { padding: 0.375rem 0.75rem; font-size: 0.8rem; }
+        .btn-icon { padding: 0.5rem; min-width: 36px; justify-content: center; }
+
+        /* FORMS */
+        .form-group { margin-bottom: 1.25rem; }
+
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group label span { color: var(--danger); }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1.5px solid var(--border);
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            font-family: 'Manrope', sans-serif;
+            color: var(--text-primary);
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* GRID LAYOUTS */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; }
+
+        /* ACTIVITY FEED */
+        .activity-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .activity-item:last-child { border-bottom: none; }
+
+        .activity-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            margin-top: 5px;
+            flex-shrink: 0;
+        }
+
+        .activity-dot.green { background: var(--success); }
+        .activity-dot.blue { background: var(--info); }
+        .activity-dot.amber { background: var(--warning); }
+        .activity-dot.red { background: var(--danger); }
+
+        .activity-text { font-size: 0.875rem; color: var(--text-primary); }
+        .activity-time { font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem; }
+
+        /* QUICK ACTIONS */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .quick-action {
+            background: white;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.25rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quick-action:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .quick-action i {
+            font-size: 1.75rem;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .quick-action span {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        /* NOTIFICATION TOAST */
+        .toast {
+            position: fixed;
+            top: 90px;
+            right: 20px;
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1rem 1.25rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-left: 4px solid var(--success);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 9999;
+            animation: slideIn 0.3s ease;
+            max-width: 380px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* MODAL */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s;
+        }
+
+        .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+        .modal {
+            background: white;
+            border-radius: 1rem;
+            width: 100%;
+            max-width: 540px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            transform: scale(0.95);
+            transition: all 0.3s;
+        }
+
+        .modal-overlay.open .modal { transform: scale(1); }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-header h3 { font-size: 1.1rem; }
+
+        .modal-close {
+            width: 32px; height: 32px;
+            border: none;
+            background: var(--body-bg);
+            border-radius: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .modal-close:hover { background: var(--danger); color: white; }
+        .modal-body { padding: 1.5rem; }
+        .modal-footer {
+            padding: 1.25rem 1.5rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 0.75rem;
+            justify-content: flex-end;
+        }
+
+        /* PROGRESS BAR */
+        .progress-bar {
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 1s ease;
+        }
+
+        /* SEARCH BOX */
+        .search-box {
+            position: relative;
+            flex: 1;
+            max-width: 320px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.625rem 1rem 0.625rem 2.75rem;
+            border: 1.5px solid var(--border);
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-family: 'Manrope', sans-serif;
+            background: var(--body-bg);
+            transition: all 0.2s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(30,58,138,0.08);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 0.875rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* SECTION HEADER */
+        .section-header-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-header-bar h2 {
+            font-size: 1.35rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* WELCOME BANNER */
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--primary) 0%, #1d4ed8 100%);
+            border-radius: var(--radius);
+            padding: 2rem;
+            color: white;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-banner::after {
+            content: '\f19c';
+            font-family: 'Bootstrap Icons';
+            position: absolute;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 6rem;
+            opacity: 0.08;
+        }
+
+        .welcome-banner h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .welcome-banner p { opacity: 0.85; font-size: 0.9rem; }
+
+        /* CHART PLACEHOLDER */
+        .chart-bar {
+            display: flex;
+            align-items: flex-end;
+            gap: 0.5rem;
+            height: 120px;
+            padding: 0.5rem 0;
+        }
+
+        .chart-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .chart-fill {
+            width: 100%;
+            background: linear-gradient(180deg, var(--primary-light), var(--primary));
+            border-radius: 0.25rem;
+            transition: height 1s ease;
+        }
+
+        .chart-label { font-size: 0.65rem; color: var(--text-secondary); }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .sidebar { width: 72px; }
+            .sidebar .sidebar-title, .sidebar .nav-section-title, .sidebar .sidebar-link span { display: none; }
+            .main-content { margin-left: 72px; }
+            .page-content { padding: 1rem; }
+            .grid-2, .grid-3, .form-row { grid-template-columns: 1fr; }
+            .quick-actions { grid-template-columns: repeat(2, 1fr); }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .admin-name, .admin-role { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ============ LOGIN PAGE ============ -->
+<div id="loginPage">
+    <div class="login-card">
+        <div class="login-logo">
+            <div class="logo-icon"><i class="bi bi-mortarboard-fill"></i></div>
+            <h1>Admin Panel</h1>
+            <p>Saraswati Bal Niketan School</p>
+        </div>
+
+        <div class="login-error" id="loginError">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            Galat username ya password. Dobara koshish karein.
+        </div>
+
+        <div class="login-form">
+            <div class="form-group">
+                <label>Username</label>
+                <div class="input-wrapper">
+                    <i class="bi bi-person-fill"></i>
+                    <input type="text" id="loginUsername" placeholder="admin username dalein" autocomplete="off">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <div class="input-wrapper">
+                    <i class="bi bi-lock-fill"></i>
+                    <input type="password" id="loginPassword" placeholder="password dalein">
+                </div>
+            </div>
+            <button class="login-btn" onclick="handleLogin()">
+                <i class="bi bi-box-arrow-in-right"></i> Login Karein
+            </button>
+        </div>
+
+        <div class="login-hint">
+            Demo: <span>admin</span> / <span>sbn@2024</span>
+        </div>
+    </div>
+</div>
+
+<!-- ============ ADMIN DASHBOARD ============ -->
+<div id="adminDashboard">
+    <div class="admin-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo"><i class="bi bi-mortarboard-fill"></i></div>
+                <div class="sidebar-title">
+                    SBN Admin
+                    <small>School Management</small>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">Main</div>
+                <button class="sidebar-link active" onclick="showTab('dashboard', this)">
+                    <i class="bi bi-grid-fill"></i><span>Dashboard</span>
+                </button>
+
+                <div class="nav-section-title">Management</div>
+                <button class="sidebar-link" onclick="showTab('students', this)">
+                    <i class="bi bi-people-fill"></i><span>Students</span>
+                </button>
+                <button class="sidebar-link" onclick="showTab('teachers', this)">
+                    <i class="bi bi-person-badge-fill"></i><span>Teachers</span>
+                </button>
+                <button class="sidebar-link" onclick="showTab('admissions', this)">
+                    <i class="bi bi-file-earmark-person-fill"></i><span>Admissions</span>
+                </button>
+                <button class="sidebar-link" onclick="showTab('fees', this)">
+                    <i class="bi bi-cash-coin"></i><span>Fee Management</span>
+                </button>
+
+                <div class="nav-section-title">Content</div>
+                <button class="sidebar-link" onclick="showTab('notices', this)">
+                    <i class="bi bi-megaphone-fill"></i><span>Notices</span>
+                </button>
+                <button class="sidebar-link" onclick="showTab('events', this)">
+                    <i class="bi bi-calendar-event-fill"></i><span>Events</span>
+                </button>
+                <button class="sidebar-link" onclick="showTab('gallery', this)">
+                    <i class="bi bi-images"></i><span>Gallery</span>
+                </button>
+
+                <div class="nav-section-title">System</div>
+                <button class="sidebar-link" onclick="showTab('contacts', this)">
+                    <i class="bi bi-envelope-fill"></i><span>Inquiries</span>
+                </button>
+                <button class="sidebar-link" onclick="showTab('settings', this)">
+                    <i class="bi bi-gear-fill"></i><span>Settings</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="logout-btn" onclick="handleLogout()">
+                    <i class="bi bi-box-arrow-left"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN -->
+        <div class="main-content" id="mainContent">
+
+            <!-- TOPBAR -->
+            <div class="topbar">
+                <div class="topbar-left">
+                    <div class="sidebar-toggle" onclick="toggleSidebar()">
+                        <i class="bi bi-list"></i>
+                    </div>
+                    <div class="page-title" id="pageTitle">
+                        Dashboard
+                        <small>Welcome back, Admin!</small>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <div class="topbar-btn" title="Notifications">
+                        <i class="bi bi-bell-fill"></i>
+                        <div class="badge">3</div>
+                    </div>
+                    <a href="index.html" class="topbar-btn" title="Website Dekhen" target="_blank">
+                        <i class="bi bi-globe"></i>
+                    </a>
+                    <div class="admin-profile">
+                        <div class="admin-avatar">A</div>
+                        <div>
+                            <div class="admin-name">Admin</div>
+                            <div class="admin-role">Super Admin</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE CONTENT -->
+            <div class="page-content">
+
+                <!-- ====== DASHBOARD TAB ====== -->
+                <div class="tab-pane active" id="tab-dashboard">
+
+                    <div class="welcome-banner">
+                        <h2>Namaste, Admin! 🙏</h2>
+                        <p>Saraswati Bal Niketan School Management Panel mein aapka swagat hai. Aaj sab kuch theek chal raha hai.</p>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon blue"><i class="bi bi-people-fill"></i></div>
+                            <div class="stat-info">
+                                <h3>1,248</h3>
+                                <p>Kul Students</p>
+                                <span class="stat-change up">↑ 12 naye is mahine</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon green"><i class="bi bi-person-badge-fill"></i></div>
+                            <div class="stat-info">
+                                <h3>48</h3>
+                                <p>Teachers</p>
+                                <span class="stat-change up">↑ 2 naye</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon amber"><i class="bi bi-file-earmark-person"></i></div>
+                            <div class="stat-info">
+                                <h3>34</h3>
+                                <p>Pending Admissions</p>
+                                <span class="stat-change down">↓ 8 se kam</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon purple"><i class="bi bi-cash-coin"></i></div>
+                            <div class="stat-info">
+                                <h3>₹4.2L</h3>
+                                <p>Is Mahine Fee</p>
+                                <span class="stat-change up">↑ 18% growth</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon red"><i class="bi bi-envelope-fill"></i></div>
+                            <div class="stat-info">
+                                <h3>12</h3>
+                                <p>Nayi Inquiries</p>
+                                <span class="stat-change up">↑ aaj 3 aayi</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quick-actions">
+                        <div class="quick-action" onclick="showTab('admissions', document.querySelector('[onclick*=admissions]'))">
+                            <i class="bi bi-person-plus-fill" style="color:#3b82f6"></i>
+                            <span>Naya Admission</span>
+                        </div>
+                        <div class="quick-action" onclick="showTab('notices', document.querySelector('[onclick*=notices]'))">
+                            <i class="bi bi-megaphone-fill" style="color:#f59e0b"></i>
+                            <span>Notice Daalo</span>
+                        </div>
+                        <div class="quick-action" onclick="showTab('fees', document.querySelector('[onclick*=fees]'))">
+                            <i class="bi bi-receipt" style="color:#10b981"></i>
+                            <span>Fee Receipt</span>
+                        </div>
+                        <div class="quick-action" onclick="showTab('events', document.querySelector('[onclick*=events]'))">
+                            <i class="bi bi-calendar-plus" style="color:#8b5cf6"></i>
+                            <span>Event Add</span>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="admin-card">
+                            <div class="card-header">
+                                <h3><i class="bi bi-bar-chart-fill" style="color:var(--primary)"></i> Monthly Admissions</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-bar" id="admissionChart"></div>
+                            </div>
+                        </div>
+                        <div class="admin-card">
+                            <div class="card-header">
+                                <h3><i class="bi bi-clock-history" style="color:var(--accent)"></i> Recent Activity</h3>
+                            </div>
+                            <div class="card-body" style="padding-top:0.5rem">
+                                <div class="activity-item">
+                                    <div class="activity-dot green"></div>
+                                    <div>
+                                        <div class="activity-text">Rohan Sharma ka admission confirm hua</div>
+                                        <div class="activity-time">2 minute pehle</div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-dot blue"></div>
+                                    <div>
+                                        <div class="activity-text">Priya Singh ne contact form bhara</div>
+                                        <div class="activity-time">15 minute pehle</div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-dot amber"></div>
+                                    <div>
+                                        <div class="activity-text">Class 8 ka fee reminder bheja gaya</div>
+                                        <div class="activity-time">1 ghanta pehle</div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-dot red"></div>
+                                    <div>
+                                        <div class="activity-text">Annual Sports Day notice publish hua</div>
+                                        <div class="activity-time">3 ghante pehle</div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-dot green"></div>
+                                    <div>
+                                        <div class="activity-text">2 nayi gallery photos add ki gayi</div>
+                                        <div class="activity-time">Kal</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3><i class="bi bi-lightning-fill" style="color:var(--accent)"></i> Fee Collection Status</h3>
+                            <span class="status-badge active">May 2024</span>
+                        </div>
+                        <div class="card-body">
+                            <div style="display:grid;gap:1rem">
+                                <div>
+                                    <div style="display:flex;justify-content:space-between;font-size:0.875rem;margin-bottom:0.25rem">
+                                        <span>Pre-Nursery to KG</span><span style="font-weight:700">78%</span>
+                                    </div>
+                                    <div class="progress-bar"><div class="progress-fill" style="width:78%;background:linear-gradient(90deg,#10b981,#059669)"></div></div>
+                                </div>
+                                <div>
+                                    <div style="display:flex;justify-content:space-between;font-size:0.875rem;margin-bottom:0.25rem">
+                                        <span>Class 1 to 5</span><span style="font-weight:700">65%</span>
+                                    </div>
+                                    <div class="progress-bar"><div class="progress-fill" style="width:65%;background:linear-gradient(90deg,#3b82f6,#1d4ed8)"></div></div>
+                                </div>
+                                <div>
+                                    <div style="display:flex;justify-content:space-between;font-size:0.875rem;margin-bottom:0.25rem">
+                                        <span>Class 6 to 8</span><span style="font-weight:700">82%</span>
+                                    </div>
+                                    <div class="progress-bar"><div class="progress-fill" style="width:82%;background:linear-gradient(90deg,#f59e0b,#d97706)"></div></div>
+                                </div>
+                                <div>
+                                    <div style="display:flex;justify-content:space-between;font-size:0.875rem;margin-bottom:0.25rem">
+                                        <span>Class 9 to 10</span><span style="font-weight:700">91%</span>
+                                    </div>
+                                    <div class="progress-bar"><div class="progress-fill" style="width:91%;background:linear-gradient(90deg,#8b5cf6,#7c3aed)"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ====== STUDENTS TAB ====== -->
+                <div class="tab-pane" id="tab-students">
+                    <div class="section-header-bar">
+                        <h2>Students Management</h2>
+                        <button class="btn btn-primary" onclick="openModal('studentModal')">
+                            <i class="bi bi-plus-lg"></i> Naya Student
+                        </button>
+                    </div>
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3>Sabhi Students</h3>
+                            <div style="display:flex;gap:0.75rem;align-items:center">
+                                <div class="search-box">
+                                    <i class="bi bi-search"></i>
+                                    <input type="text" placeholder="Student khojein..." oninput="filterTable(this,'studentTable')">
+                                </div>
+                                <select class="form-control" style="width:auto;padding:0.5rem 0.75rem">
+                                    <option>Sabhi Class</option>
+                                    <option>Class 1-5</option>
+                                    <option>Class 6-8</option>
+                                    <option>Class 9-10</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="overflow-x:auto">
+                            <table class="admin-table" id="studentTable">
+                                <thead>
+                                    <tr>
+                                        <th>Roll No.</th>
+                                        <th>Student Ka Naam</th>
+                                        <th>Class</th>
+                                        <th>Parent Ka Naam</th>
+                                        <th>Phone</th>
+                                        <th>Fee Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>001</td><td>Rohan Kumar Sharma</td><td>Class 8-A</td><td>Ramesh Sharma</td><td>9876543210</td>
+                                        <td><span class="status-badge active">Paid</span></td>
+                                        <td><button class="btn btn-outline btn-sm btn-icon"><i class="bi bi-pencil"></i></button> <button class="btn btn-danger btn-sm btn-icon"><i class="bi bi-trash"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>002</td><td>Priya Singh</td><td>Class 6-B</td><td>Suresh Singh</td><td>9876543211</td>
+                                        <td><span class="status-badge pending">Pending</span></td>
+                                        <td><button class="btn btn-outline btn-sm btn-icon"><i class="bi bi-pencil"></i></button> <button class="btn btn-danger btn-sm btn-icon"><i class="bi bi-trash"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>003</td><td>Amit Gupta</td><td>Class 10-A</td><td>Vijay Gupta</td><td>9876543212</td>
+                                        <td><span class="status-badge active">Paid</span></td>
+                                        <td><button class="btn btn-outline btn-sm btn-icon"><i class="bi bi-pencil"></i></button> <button class="btn btn-danger btn-sm btn-icon"><i class="bi bi-trash"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>004</td><td>Sunita Yadav</td><td>Class 3-A</td><td>Mohan Yadav</td><td>9876543213</td>
+                                        <td><span class="status-badge inactive">Overdue</span></td>
+                                        <td><button class="btn btn-outline btn-sm btn-icon"><i class="bi bi-pencil"></i></button> <button class="btn btn-danger btn-sm btn-icon"><i class="bi bi-trash"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>005</td><td>Ravi Kumar</td><td>Class 9-B</td><td>Krishna Kumar</td><td>9876543214</td>
+                                        <td><span class="status-badge active">Paid</span></td>
+                                        <td><button class="btn btn-outline btn-sm btn-icon"><i class="bi bi-pencil"></i></button> <button class="btn btn-danger btn-sm btn-icon"><i class="bi bi-trash"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ====== TEACHERS TAB ====== -->
+                <div class="tab-pane" id="tab-teachers">
+                    <div class="section-header-bar">
+                        <h2>Teachers Management</h2>
+                        <button class="btn btn-primary" onclick="openModal('teacherModal')">
+                            <i class="bi bi-plus-lg"></i> Naya Teacher Add
+                        </button>
+                    </div>
+                    <div class="grid-3" style="margin-bottom:1.5rem">
+                        <div class="stat-card">
+                            <div class="stat-icon green"><i class="bi bi-person-check-fill"></i></div>
+                            <div class="stat-info"><h3>48</h3><p>Active Teachers</p></div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon blue"><i class="bi bi-book-fill"></i></div>
+                            <div class="stat-info"><h3>12</h3><p>Subjects Covered</p></div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon amber"><i class="bi bi-award-fill"></i></div>
+                            <div class="stat-info"><h3>8</h3><p>HODs</p></div>
+                        </div>
+                    </div>
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3>Teaching Staff</h3>
+                            <div class="search-box">
+                                <i class="bi bi-search"></i>
+                                <input type="text" placeholder="Teacher khojein..." oninput="filterTable(this,'teacherTable')">
+                            </div>
+                        </div>
+                        <div style="overflow-x:auto">
+                            <table class="admin-table" id="teacherTable">
+                                <thead>
+                                    <tr><th>ID</th><th>Naam</th><th>Designation</th><th>Subject</th><th>Qualification</th><th>Phone</th><th>Status</th><th>Action</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>T01</td><td>Mrs. Priya Sharma</td><td>Vice Principal & HOD</td><td>Science</td><td>M.Sc. Physics, B.Ed.</td><td>9800000001</td>
+                                        <td><span class="status-badge active">Active</span></td>
+                                        <td><button class="btn btn-outline btn-sm btn-icon"><i class="bi bi-pencil"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>T02</td><td>Mr. Amit Kumar</td><td>HOD Mathematics</td><td>Maths</td><td>M.Sc. Maths, B.Ed.</td><td>9800000002</td>
+                                        <td><span class="status-badge active">Active</span></td>
+                                        <td><button class="btn btn-outline btn-sm btn-icon"><i class="bi bi-pencil"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>T03</td><td>Mrs. Sunita Singh</td><td>HOD English</td><td>English</td><td>M.A. English, B.Ed.</td><td>9800000003</td>
+                                        <td><span class="status-badge active">Active</span></td>
+                                        <td><button class="btn btn-outline btn-sm btn-icon"><i class="bi bi-pencil"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>T04</td><td>Mr. Ravi Gupta</td><td>HOD Social Science</td><td>History/SST</td><td>M.A. History, B.Ed.</td><td>9800000004</td>
+                                        <td><span class="status-badge pending">On Leave</span></td>
+                                        <td><button class="btn btn-outline btn-sm btn-icon"><i class="bi bi-pencil"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ====== ADMISSIONS TAB ====== -->
+                <div class="tab-pane" id="tab-admissions">
+                    <div class="section-header-bar">
+                        <h2>Admission Management</h2>
+                        <button class="btn btn-primary" onclick="openModal('admissionModal')">
+                            <i class="bi bi-plus-lg"></i> Naya Admission Form
+                        </button>
+                    </div>
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3>Admission Requests 2024-25</h3>
+                            <div style="display:flex;gap:0.5rem">
+                                <span class="status-badge active">34 Pending</span>
+                                <span class="status-badge pending">12 Review</span>
+                            </div>
+                        </div>
+                        <div style="overflow-x:auto">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr><th>Date</th><th>Student Naam</th><th>Class Apply</th><th>DOB</th><th>Parent Naam</th><th>Phone</th><th>Status</th><th>Action</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>24 May 2024</td><td>Aryan Mishra</td><td>Class 6</td><td>12/03/2013</td><td>Rakesh Mishra</td><td>9876512345</td>
+                                        <td><span class="status-badge pending">Review</span></td>
+                                        <td>
+                                            <button class="btn btn-success btn-sm" onclick="showToast('Admission approve ho gayi!')"><i class="bi bi-check"></i> Approve</button>
+                                            <button class="btn btn-danger btn-sm"><i class="bi bi-x"></i> Reject</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>23 May 2024</td><td>Kavya Tiwari</td><td>Class 9</td><td>05/07/2010</td><td>Ashok Tiwari</td><td>9876598765</td>
+                                        <td><span class="status-badge pending">Review</span></td>
+                                        <td>
+                                            <button class="btn btn-success btn-sm" onclick="showToast('Admission approve ho gayi!')"><i class="bi bi-check"></i> Approve</button>
+                                            <button class="btn btn-danger btn-sm"><i class="bi bi-x"></i> Reject</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>22 May 2024</td><td>Rahul Pandey</td><td>Nursery</td><td>18/09/2021</td><td>Sanjay Pandey</td><td>9123456789</td>
+                                        <td><span class="status-badge active">Approved</span></td>
+                                        <td>
+                                            <button class="btn btn-outline btn-sm"><i class="bi bi-eye"></i> View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>21 May 2024</td><td>Sneha Rao</td><td>Class 3</td><td>14/11/2016</td><td>Venkat Rao</td><td>9012345678</td>
+                                        <td><span class="status-badge inactive">Rejected</span></td>
+                                        <td>
+                                            <button class="btn btn-outline btn-sm"><i class="bi bi-eye"></i> View</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ====== FEE MANAGEMENT TAB ====== -->
+                <div class="tab-pane" id="tab-fees">
+                    <div class="section-header-bar">
+                        <h2>Fee Management</h2>
+                        <button class="btn btn-primary" onclick="openModal('feeModal')">
+                            <i class="bi bi-receipt"></i> Receipt Generate
+                        </button>
+                    </div>
+                    <div class="grid-2" style="margin-bottom:1.5rem">
+                        <div class="stat-card">
+                            <div class="stat-icon green"><i class="bi bi-check-circle-fill"></i></div>
+                            <div class="stat-info"><h3>₹4,20,000</h3><p>Collected This Month</p></div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon red"><i class="bi bi-exclamation-circle-fill"></i></div>
+                            <div class="stat-info"><h3>₹85,000</h3><p>Pending Collection</p></div>
+                        </div>
+                    </div>
+                    <div class="admin-card">
+                        <div class="card-header"><h3>Fee Records - May 2024</h3></div>
+                        <div style="overflow-x:auto">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr><th>Receipt No.</th><th>Student</th><th>Class</th><th>Amount</th><th>Date</th><th>Mode</th><th>Status</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>RCP-001</td><td>Rohan Kumar Sharma</td><td>Class 8-A</td><td>₹3,000</td><td>01 May 2024</td><td>Cash</td><td><span class="status-badge active">Paid</span></td></tr>
+                                    <tr><td>RCP-002</td><td>Amit Gupta</td><td>Class 10-A</td><td>₹3,500</td><td>02 May 2024</td><td>Online</td><td><span class="status-badge active">Paid</span></td></tr>
+                                    <tr><td>RCP-003</td><td>Priya Singh</td><td>Class 6-B</td><td>₹2,500</td><td>-</td><td>-</td><td><span class="status-badge pending">Pending</span></td></tr>
+                                    <tr><td>RCP-004</td><td>Sunita Yadav</td><td>Class 3-A</td><td>₹2,000</td><td>-</td><td>-</td><td><span class="status-badge inactive">Overdue</span></td></tr>
+                                    <tr><td>RCP-005</td><td>Ravi Kumar</td><td>Class 9-B</td><td>₹3,500</td><td>05 May 2024</td><td>Cheque</td><td><span class="status-badge active">Paid</span></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ====== NOTICES TAB ====== -->
+                <div class="tab-pane" id="tab-notices">
+                    <div class="section-header-bar">
+                        <h2>Notice Board</h2>
+                        <button class="btn btn-primary" onclick="openModal('noticeModal')">
+                            <i class="bi bi-plus-lg"></i> Naya Notice
+                        </button>
+                    </div>
+                    <div class="admin-card">
+                        <div class="card-header"><h3>Published Notices</h3></div>
+                        <div style="overflow-x:auto">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr><th>Date</th><th>Title</th><th>Category</th><th>Target</th><th>Status</th><th>Action</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>24 May</td><td>Annual Sports Day - 15 June</td><td>Events</td><td>Sabhi</td><td><span class="status-badge active">Live</span></td><td><button class="btn btn-outline btn-sm btn-icon"><i class="bi bi-pencil"></i></button> <button class="btn btn-danger btn-sm btn-icon"><i class="bi bi-trash"></i></button></td></tr>
+                                    <tr><td>22 May</td><td>Summer Vacation Notice 2024</td><td>Academic</td><td>Students</td><td><span class="status-badge active">Live</span></td><td><button class="btn btn-outline btn-sm btn-icon"><i class="bi bi-pencil"></i></button> <button class="btn btn-danger btn-sm btn-icon"><i class="bi bi-trash"></i></button></td></tr>
+                                    <tr><td>20 May</td><td>Fee Submission Reminder</td><td>Finance</td><td>Parents</td><td><span class="status-badge active">Live</span></td><td><button class="btn btn-outline btn-sm btn-icon"><i class="bi bi-pencil"></i></button> <button class="btn btn-danger btn-sm btn-icon"><i class="bi bi-trash"></i></button></td></tr>
+                                    <tr><td>18 May</td><td>PTM Schedule - 28 May</td><td>Academic</td><td>Parents</td><td><span class="status-badge pending">Scheduled</span></td><td><button class="btn btn-outline btn-sm btn-icon"><i class="bi bi-pencil"></i></button> <button class="btn btn-danger btn-sm btn-icon"><i class="bi bi-trash"></i></button></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ====== EVENTS TAB ====== -->
+                <div class="tab-pane" id="tab-events">
+                    <div class="section-header-bar">
+                        <h2>Events Management</h2>
+                        <button class="btn btn-primary" onclick="openModal('eventModal')">
+                            <i class="bi bi-plus-lg"></i> Naya Event
+                        </button>
+                    </div>
+                    <div class="admin-card">
+                        <div class="card-header"><h3>Upcoming Events</h3></div>
+                        <div style="overflow-x:auto">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr><th>Event</th><th>Date</th><th>Venue</th><th>Target</th><th>Status</th><th>Action</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Annual Sports Day</td><td>15 Jun 2024</td><td>School Ground</td><td>Sabhi Students</td><td><span class="status-badge pending">Upcoming</span></td><td><button class="btn btn-outline btn-sm btn-icon"><i class="bi bi-pencil"></i></button></td></tr>
+                                    <tr><td>Parent Teacher Meeting</td><td>28 May 2024</td><td>Classrooms</td><td>Parents</td><td><span class="status-badge pending">Upcoming</span></td><td><button class="btn btn-outline btn-sm btn-icon"><i class="bi bi-pencil"></i></button></td></tr>
+                                    <tr><td>Science Exhibition</td><td>10 Jul 2024</td><td>Auditorium</td><td>Class 6-10</td><td><span class="status-badge pending">Planning</span></td><td><button class="btn btn-outline btn-sm btn-icon"><i class="bi bi-pencil"></i></button></td></tr>
+                                    <tr><td>Republic Day 2024</td><td>26 Jan 2024</td><td>Ground</td><td>Sabhi</td><td><span class="status-badge active">Completed</span></td><td><button class="btn btn-outline btn-sm btn-icon"><i class="bi bi-eye"></i></button></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ====== GALLERY TAB ====== -->
+                <div class="tab-pane" id="tab-gallery">
+                    <div class="section-header-bar">
+                        <h2>Gallery Management</h2>
+                        <button class="btn btn-primary" onclick="openModal('galleryModal')">
+                            <i class="bi bi-image-fill"></i> Photo Add Karein
+                        </button>
+                    </div>
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3>Gallery Photos</h3>
+                            <span style="font-size:0.875rem;color:var(--text-secondary)">Total: 14 Photos</span>
+                        </div>
+                        <div class="card-body">
+                            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem">
+                                <div style="border:1.5px solid var(--border);border-radius:0.75rem;overflow:hidden">
+                                    <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=300&h=200&fit=crop" style="width:100%;height:140px;object-fit:cover;display:block">
+                                    <div style="padding:0.75rem">
+                                        <div style="font-size:0.8rem;font-weight:600">School Building</div>
+                                        <div style="display:flex;gap:0.5rem;margin-top:0.5rem">
+                                            <button class="btn btn-outline btn-sm" style="flex:1;justify-content:center"><i class="bi bi-pencil"></i></button>
+                                            <button class="btn btn-danger btn-sm" style="justify-content:center"><i class="bi bi-trash"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="border:1.5px solid var(--border);border-radius:0.75rem;overflow:hidden">
+                                    <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=300&h=200&fit=crop" style="width:100%;height:140px;object-fit:cover;display:block">
+                                    <div style="padding:0.75rem">
+                                        <div style="font-size:0.8rem;font-weight:600">Library</div>
+                                        <div style="display:flex;gap:0.5rem;margin-top:0.5rem">
+                                            <button class="btn btn-outline btn-sm" style="flex:1;justify-content:center"><i class="bi bi-pencil"></i></button>
+                                            <button class="btn btn-danger btn-sm" style="justify-content:center"><i class="bi bi-trash"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="border:1.5px dashed var(--border);border-radius:0.75rem;display:flex;align-items:center;justify-content:center;min-height:200px;cursor:pointer;color:var(--text-secondary);flex-direction:column;gap:0.5rem" onclick="openModal('galleryModal')">
+                                    <i class="bi bi-plus-circle" style="font-size:2rem;color:var(--primary)"></i>
+                                    <span style="font-size:0.85rem">Photo Add Karein</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ====== INQUIRIES TAB ====== -->
+                <div class="tab-pane" id="tab-contacts">
+                    <div class="section-header-bar">
+                        <h2>Contact Inquiries</h2>
+                        <span class="status-badge inactive" style="font-size:0.875rem;padding:0.4rem 1rem">12 Nayi</span>
+                    </div>
+                    <div class="admin-card">
+                        <div class="card-header"><h3>Sabhi Inquiries</h3></div>
+                        <div style="overflow-x:auto">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr><th>Date</th><th>Naam</th><th>Phone</th><th>Subject</th><th>Message</th><th>Status</th><th>Action</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>24 May</td><td>Rahul Verma</td><td>9876543210</td><td>Admission</td><td>Class 6 mein admission chahiye...</td><td><span class="status-badge pending">New</span></td><td><button class="btn btn-success btn-sm" onclick="showToast('Reply bheja gaya!')"><i class="bi bi-reply"></i> Reply</button></td></tr>
+                                    <tr><td>23 May</td><td>Priya Joshi</td><td>9765432109</td><td>Fee</td><td>Fee ki jankari chahiye...</td><td><span class="status-badge pending">New</span></td><td><button class="btn btn-success btn-sm" onclick="showToast('Reply bheja gaya!')"><i class="bi bi-reply"></i> Reply</button></td></tr>
+                                    <tr><td>22 May</td><td>Suresh Kumar</td><td>9654321098</td><td>General</td><td>School timing kya hai...</td><td><span class="status-badge active">Replied</span></td><td><button class="btn btn-outline btn-sm"><i class="bi bi-eye"></i> View</button></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ====== SETTINGS TAB ====== -->
+                <div class="tab-pane" id="tab-settings">
+                    <div class="section-header-bar">
+                        <h2>Settings</h2>
+                    </div>
+                    <div class="grid-2">
+                        <div class="admin-card">
+                            <div class="card-header"><h3><i class="bi bi-building"></i> School Information</h3></div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>School Ka Naam</label>
+                                    <input type="text" class="form-control" value="Saraswati Bal Niketan School">
+                                </div>
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <textarea class="form-control" rows="2">Bhuli E-Block, Sec-4, Bhuli, Dhanbad, Jharkhand 828104</textarea>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Phone</label>
+                                        <input type="text" class="form-control" value="+91 612 2345678">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="text" class="form-control" value="aniixdigital@gmail.com">
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary" onclick="showToast('Settings save ho gayi!')">
+                                    <i class="bi bi-save"></i> Save Karein
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="admin-card">
+                            <div class="card-header"><h3><i class="bi bi-shield-lock-fill"></i> Password Change</h3></div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>Purana Password</label>
+                                    <input type="password" class="form-control" placeholder="Purana password">
+                                </div>
+                                <div class="form-group">
+                                    <label>Naya Password</label>
+                                    <input type="password" class="form-control" placeholder="Naya password">
+                                </div>
+                                <div class="form-group">
+                                    <label>Confirm Password</label>
+                                    <input type="password" class="form-control" placeholder="Dobara naya password">
+                                </div>
+                                <button class="btn btn-warning" onclick="showToast('Password update ho gaya!')">
+                                    <i class="bi bi-key"></i> Update Karein
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- end page-content -->
+        </div><!-- end main-content -->
+    </div><!-- end admin-layout -->
+</div><!-- end adminDashboard -->
+
+<!-- ============ MODALS ============ -->
+
+<!-- Student Modal -->
+<div class="modal-overlay" id="studentModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h3><i class="bi bi-person-plus-fill"></i> Naya Student Add</h3>
+            <button class="modal-close" onclick="closeModal('studentModal')"><i class="bi bi-x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-row">
+                <div class="form-group"><label>Student Ka Naam <span>*</span></label><input type="text" class="form-control" placeholder="Pura naam"></div>
+                <div class="form-group"><label>DOB <span>*</span></label><input type="date" class="form-control"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Class <span>*</span></label><select class="form-control"><option>Class Choose Karein</option><option>Nursery</option><option>KG-1</option><option>KG-2</option><option>Class 1</option><option>Class 2</option><option>Class 3</option><option>Class 4</option><option>Class 5</option><option>Class 6</option><option>Class 7</option><option>Class 8</option><option>Class 9</option><option>Class 10</option></select></div>
+                <div class="form-group"><label>Section</label><select class="form-control"><option>A</option><option>B</option><option>C</option></select></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Parent/Guardian Naam <span>*</span></label><input type="text" class="form-control" placeholder="Parent naam"></div>
+                <div class="form-group"><label>Phone <span>*</span></label><input type="tel" class="form-control" placeholder="10-digit number"></div>
+            </div>
+            <div class="form-group"><label>Address</label><textarea class="form-control" rows="2" placeholder="Ghar ka pura pata"></textarea></div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" onclick="closeModal('studentModal')">Cancel</button>
+            <button class="btn btn-primary" onclick="closeModal('studentModal');showToast('Student successfully add ho gaya!')"><i class="bi bi-check-lg"></i> Save Karein</button>
+        </div>
+    </div>
+</div>
+
+<!-- Teacher Modal -->
+<div class="modal-overlay" id="teacherModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h3><i class="bi bi-person-badge-fill"></i> Naya Teacher Add</h3>
+            <button class="modal-close" onclick="closeModal('teacherModal')"><i class="bi bi-x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-row">
+                <div class="form-group"><label>Naam <span>*</span></label><input type="text" class="form-control" placeholder="Teacher ka naam"></div>
+                <div class="form-group"><label>Employee ID</label><input type="text" class="form-control" placeholder="Auto generate hoga"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Designation <span>*</span></label><input type="text" class="form-control" placeholder="jaise HOD, Teacher, etc."></div>
+                <div class="form-group"><label>Subject <span>*</span></label><input type="text" class="form-control" placeholder="Subject ka naam"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Qualification</label><input type="text" class="form-control" placeholder="jaise M.Sc., B.Ed."></div>
+                <div class="form-group"><label>Phone <span>*</span></label><input type="tel" class="form-control" placeholder="Phone number"></div>
+            </div>
+            <div class="form-group"><label>Email</label><input type="email" class="form-control" placeholder="Email address"></div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" onclick="closeModal('teacherModal')">Cancel</button>
+            <button class="btn btn-primary" onclick="closeModal('teacherModal');showToast('Teacher successfully add ho gaye!')"><i class="bi bi-check-lg"></i> Save Karein</button>
+        </div>
+    </div>
+</div>
+
+<!-- Admission Modal -->
+<div class="modal-overlay" id="admissionModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h3><i class="bi bi-file-earmark-person-fill"></i> Admission Form</h3>
+            <button class="modal-close" onclick="closeModal('admissionModal')"><i class="bi bi-x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-row">
+                <div class="form-group"><label>Student Ka Naam <span>*</span></label><input type="text" class="form-control"></div>
+                <div class="form-group"><label>DOB <span>*</span></label><input type="date" class="form-control"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Jis Class Mein Apply <span>*</span></label><select class="form-control"><option>Class Choose Karein</option><option>Nursery</option><option>KG</option><option>Class 1</option><option>Class 6</option><option>Class 9</option></select></div>
+                <div class="form-group"><label>Parent Ka Naam <span>*</span></label><input type="text" class="form-control"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Phone <span>*</span></label><input type="tel" class="form-control"></div>
+                <div class="form-group"><label>Email</label><input type="email" class="form-control"></div>
+            </div>
+            <div class="form-group"><label>Previous School (Agar Ho)</label><input type="text" class="form-control" placeholder="Pichle school ka naam"></div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" onclick="closeModal('admissionModal')">Cancel</button>
+            <button class="btn btn-primary" onclick="closeModal('admissionModal');showToast('Admission form submit ho gaya!')"><i class="bi bi-check-lg"></i> Submit Karein</button>
+        </div>
+    </div>
+</div>
+
+<!-- Notice Modal -->
+<div class="modal-overlay" id="noticeModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h3><i class="bi bi-megaphone-fill"></i> Naya Notice</h3>
+            <button class="modal-close" onclick="closeModal('noticeModal')"><i class="bi bi-x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group"><label>Notice Title <span>*</span></label><input type="text" class="form-control" placeholder="Notice ka title"></div>
+            <div class="form-row">
+                <div class="form-group"><label>Category <span>*</span></label><select class="form-control"><option>Academic</option><option>Events</option><option>Finance</option><option>Holiday</option><option>Other</option></select></div>
+                <div class="form-group"><label>Target <span>*</span></label><select class="form-control"><option>Sabhi</option><option>Students</option><option>Parents</option><option>Teachers</option></select></div>
+            </div>
+            <div class="form-group"><label>Notice Content <span>*</span></label><textarea class="form-control" rows="4" placeholder="Notice ka pura content yahan likhein..."></textarea></div>
+            <div class="form-row">
+                <div class="form-group"><label>Publish Date</label><input type="date" class="form-control"></div>
+                <div class="form-group"><label>Expiry Date</label><input type="date" class="form-control"></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" onclick="closeModal('noticeModal')">Cancel</button>
+            <button class="btn btn-primary" onclick="closeModal('noticeModal');showToast('Notice successfully publish ho gayi!')"><i class="bi bi-megaphone"></i> Publish Karein</button>
+        </div>
+    </div>
+</div>
+
+<!-- Event Modal -->
+<div class="modal-overlay" id="eventModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h3><i class="bi bi-calendar-plus"></i> Naya Event Add</h3>
+            <button class="modal-close" onclick="closeModal('eventModal')"><i class="bi bi-x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group"><label>Event Ka Naam <span>*</span></label><input type="text" class="form-control" placeholder="Event naam"></div>
+            <div class="form-row">
+                <div class="form-group"><label>Date <span>*</span></label><input type="date" class="form-control"></div>
+                <div class="form-group"><label>Time</label><input type="time" class="form-control"></div>
+            </div>
+            <div class="form-group"><label>Venue <span>*</span></label><input type="text" class="form-control" placeholder="Jagah ka naam"></div>
+            <div class="form-group"><label>Description</label><textarea class="form-control" rows="3" placeholder="Event ki jankari..."></textarea></div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" onclick="closeModal('eventModal')">Cancel</button>
+            <button class="btn btn-primary" onclick="closeModal('eventModal');showToast('Event successfully add ho gaya!')"><i class="bi bi-check-lg"></i> Add Karein</button>
+        </div>
+    </div>
+</div>
+
+<!-- Gallery Modal -->
+<div class="modal-overlay" id="galleryModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h3><i class="bi bi-image-fill"></i> Photo Add Karein</h3>
+            <button class="modal-close" onclick="closeModal('galleryModal')"><i class="bi bi-x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div style="border:2px dashed var(--border);border-radius:0.75rem;padding:2rem;text-align:center;cursor:pointer;margin-bottom:1rem" onclick="showToast('File upload feature coming soon!')">
+                <i class="bi bi-cloud-upload-fill" style="font-size:2.5rem;color:var(--primary);display:block;margin-bottom:0.75rem"></i>
+                <div style="font-weight:600;margin-bottom:0.25rem">Photo Choose Karein</div>
+                <div style="font-size:0.8rem;color:var(--text-secondary)">JPG, PNG allowed (Max 5MB)</div>
+            </div>
+            <div class="form-group"><label>Photo Title <span>*</span></label><input type="text" class="form-control" placeholder="Photo ka naam/title"></div>
+            <div class="form-group"><label>Category</label><select class="form-control"><option>Campus</option><option>Events</option><option>Sports</option><option>Academics</option><option>Cultural</option></select></div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" onclick="closeModal('galleryModal')">Cancel</button>
+            <button class="btn btn-primary" onclick="closeModal('galleryModal');showToast('Photo successfully add ho gayi!')"><i class="bi bi-upload"></i> Upload Karein</button>
+        </div>
+    </div>
+</div>
+
+<!-- Fee Modal -->
+<div class="modal-overlay" id="feeModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h3><i class="bi bi-receipt"></i> Fee Receipt Generate</h3>
+            <button class="modal-close" onclick="closeModal('feeModal')"><i class="bi bi-x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-row">
+                <div class="form-group"><label>Student Roll No. <span>*</span></label><input type="text" class="form-control" placeholder="Roll number"></div>
+                <div class="form-group"><label>Month <span>*</span></label><select class="form-control"><option>May 2024</option><option>June 2024</option><option>July 2024</option></select></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Fee Amount <span>*</span></label><input type="number" class="form-control" placeholder="₹"></div>
+                <div class="form-group"><label>Payment Mode <span>*</span></label><select class="form-control"><option>Cash</option><option>Online/UPI</option><option>Cheque</option><option>DD</option></select></div>
+            </div>
+            <div class="form-group"><label>Remarks</label><input type="text" class="form-control" placeholder="Optional remark"></div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" onclick="closeModal('feeModal')">Cancel</button>
+            <button class="btn btn-success" onclick="closeModal('feeModal');showToast('Receipt generate ho gayi! Print karein.')"><i class="bi bi-printer"></i> Generate & Print</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ===== LOGIN =====
+    const ADMIN_USER = 'admin';
+    const ADMIN_PASS = 'sbn@2024';
+
+    function handleLogin() {
+        const user = document.getElementById('loginUsername').value.trim();
+        const pass = document.getElementById('loginPassword').value;
+        const err = document.getElementById('loginError');
+
+        if (user === ADMIN_USER && pass === ADMIN_PASS) {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('adminDashboard').style.display = 'block';
+            initChart();
+        } else {
+            err.style.display = 'flex';
+            err.style.alignItems = 'center';
+            err.style.gap = '0.5rem';
+        }
+    }
+
+    document.getElementById('loginPassword').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') handleLogin();
+    });
+
+    // ===== LOGOUT =====
+    function handleLogout() {
+        document.getElementById('adminDashboard').style.display = 'none';
+        document.getElementById('loginPage').style.display = 'flex';
+        document.getElementById('loginUsername').value = '';
+        document.getElementById('loginPassword').value = '';
+        document.getElementById('loginError').style.display = 'none';
+    }
+
+    // ===== SIDEBAR TOGGLE =====
+    let sidebarCollapsed = false;
+    function toggleSidebar() {
+        sidebarCollapsed = !sidebarCollapsed;
+        document.getElementById('sidebar').classList.toggle('collapsed', sidebarCollapsed);
+        document.getElementById('mainContent').classList.toggle('expanded', sidebarCollapsed);
+    }
+
+    // ===== TABS =====
+    const pageTitles = {
+        dashboard: { title: 'Dashboard', sub: 'Welcome back, Admin!' },
+        students: { title: 'Students Management', sub: 'Sabhi students ki jankaari' },
+        teachers: { title: 'Teachers Management', sub: 'Teaching staff' },
+        admissions: { title: 'Admission Management', sub: '2024-25 session' },
+        fees: { title: 'Fee Management', sub: 'Collection aur records' },
+        notices: { title: 'Notice Board', sub: 'Notices manage karein' },
+        events: { title: 'Events', sub: 'School events manage karein' },
+        gallery: { title: 'Gallery', sub: 'Photos manage karein' },
+        contacts: { title: 'Contact Inquiries', sub: 'Nayi inquiries dekhein' },
+        settings: { title: 'Settings', sub: 'Website aur account settings' }
+    };
+
+    function showTab(tabName, btn) {
+        document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+        
+        document.getElementById('tab-' + tabName).classList.add('active');
+        if (btn) btn.classList.add('active');
+
+        const pt = pageTitles[tabName];
+        if (pt) {
+            document.getElementById('pageTitle').innerHTML = `${pt.title}<small>${pt.sub}</small>`;
+        }
+    }
+
+    // ===== MODAL =====
+    function openModal(id) {
+        document.getElementById(id).classList.add('open');
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).classList.remove('open');
+    }
+
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+        overlay.addEventListener('click', function(e) {
+            if (e.target === this) closeModal(this.id);
+        });
+    });
+
+    // ===== TOAST =====
+    function showToast(msg) {
+        const existing = document.querySelector('.toast');
+        if (existing) existing.remove();
+
+        const t = document.createElement('div');
+        t.className = 'toast';
+        t.innerHTML = `<i class="bi bi-check-circle-fill" style="color:#10b981;font-size:1.25rem"></i><span>${msg}</span>`;
+        document.body.appendChild(t);
+
+        setTimeout(() => { t.style.animation = 'slideIn 0.3s ease reverse'; setTimeout(() => t.remove(), 300); }, 3500);
+    }
+
+    // ===== TABLE FILTER =====
+    function filterTable(input, tableId) {
+        const filter = input.value.toLowerCase();
+        const rows = document.querySelectorAll(`#${tableId} tbody tr`);
+        rows.forEach(row => {
+            row.style.display = row.textContent.toLowerCase().includes(filter) ? '' : 'none';
+        });
+    }
+
+    // ===== ADMISSION BAR CHART =====
+    function initChart() {
+        const data = [
+            { label: 'Jan', h: 40 }, { label: 'Feb', h: 55 }, { label: 'Mar', h: 72 },
+            { label: 'Apr', h: 85 }, { label: 'May', h: 90 }, { label: 'Jun', h: 60 },
+            { label: 'Jul', h: 45 }, { label: 'Aug', h: 68 }
+        ];
+        const chart = document.getElementById('admissionChart');
+        if (!chart) return;
+        chart.innerHTML = data.map(d => `
+            <div class="chart-col">
+                <div class="chart-fill" style="height:${d.h}%"></div>
+                <div class="chart-label">${d.label}</div>
+            </div>
+        `).join('');
+    }
+</script>
+</body>
+</html>
